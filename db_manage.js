@@ -30,13 +30,13 @@ const update = async ()=>{
         const result = await myDBColl.replaceOne(filter,newData )
         console.log('success', result)
 }
-const deleteItem = async ()=>{
-    const filter = {age:'40'}
+const deleteById = async (id)=>{
+    const filter = {_id: new ObjectId(id)}
     const result = await myDBColl.deleteOne(filter)
-    console.log('success', result)
+    return result
 }
 
-module.exports = {create,search, read, readAll, deleteItem, update}
+module.exports = {create,search, read, readAll, deleteById, update}
 //create()
 //read()
 //deleteItem()

@@ -3,7 +3,7 @@
 // const client = new MongoClient(uri);
 
 const express = require('express')
-const {read, readAll, create, search} = require('./db_manage')
+const {read, readAll, create, search, deleteById} = require('./db_manage')
 const app = express()
 const port = 4000
 app.use(express.json())
@@ -23,7 +23,11 @@ app.post('/create', async  (req, res) => {
     const document = await search(req.body)
     res.status(200).send(document)
     })
-  
+    app.post('/delete/:id', async  (req, res) => {
+      const document = await deleteById(req.params.id)
+      res.send('successfully deleted')
+      })
+    
   app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
   })
