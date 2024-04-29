@@ -35,8 +35,12 @@ const deleteById = async (id)=>{
     const result = await myDBColl.deleteOne(filter)
     return result
 }
+const deleteAll = async ()=>{
+    const result = await myDBColl.deleteMany({})
+    return result
+}
 
-module.exports = {create,search, read, readAll, deleteById, update}
+module.exports = {create,search, read, readAll, deleteById, update, deleteAll}
 //create()
 //read()
 //deleteItem()
