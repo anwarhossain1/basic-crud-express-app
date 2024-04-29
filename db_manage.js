@@ -4,15 +4,23 @@ const client = new MongoClient(url)
 const myDB = client.db('simple-crud')
 const myDBColl = myDB.collection('crud')
 const data = {name:'anwar', age:'28'}
-
+const {ObjectId} = require('mongodb')
 
 const create = async (document)=>{
 const result = await myDBColl.insertOne(document)
 return result
 }
 
-const read = async ()=>{
+const readAll = async ()=>{
     const result = await myDBColl.find({}).toArray();
+    return result
+}
+const read = async (id)=>{
+    const result = await myDBColl.find({_id:new ObjectId(id)}).toArray();
+    return result
+}
+const search = async (document)=>{
+    const result = await myDBColl.find(document).toArray();
     return result
 }
 
@@ -28,7 +36,7 @@ const deleteItem = async ()=>{
     console.log('success', result)
 }
 
-module.exports = {create, read, deleteItem, update}
+module.exports = {create,search, read, readAll, deleteItem, update}
 //create()
 //read()
 //deleteItem()
