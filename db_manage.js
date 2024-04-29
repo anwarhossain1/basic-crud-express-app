@@ -6,15 +6,15 @@ const myDBColl = myDB.collection('crud')
 const data = {name:'anwar', age:'28'}
 
 
-const create = async ()=>{
-const result = await myDBColl.insertOne(data)
-console.log('success', result)
+const create = async (document)=>{
+const result = await myDBColl.insertOne(document)
+return result
 }
 
 const read = async ()=>{
-    const result = await myDBColl.findOne({})
-    console.log('success', result)
-    }
+    const result = await myDBColl.find({}).toArray();
+    return result
+}
 
 const update = async ()=>{
         const filter = {age:'28'}
@@ -27,6 +27,8 @@ const deleteItem = async ()=>{
     const result = await myDBColl.deleteOne(filter)
     console.log('success', result)
 }
+
+module.exports = {create, read, deleteItem, update}
 //create()
 //read()
 //deleteItem()

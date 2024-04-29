@@ -1,3 +1,7 @@
-const {setupDB, myDBColl} = require('./db_manage')
+const app = require('./server')
+
+app.get('/', (req, res)=>{
+res.send('Hello world bros')
+})
 
 
