@@ -41,8 +41,5 @@ const deleteAll = async ()=>{
 }
 
 module.exports = {create,search, read, readAll, deleteById, update, deleteAll}
-//create()
-//read()
-//deleteItem()
-// update()
+
 
