@@ -1,42 +1,43 @@
 const {MongoClient} = require('mongodb')
+const {getDBCollection} = require('./simple-crud.model')
 const url = 'mongodb://localhost:27010'
 const client = new MongoClient(url)
 const myDB = client.db('simple-crud')
-const myDBColl = myDB.collection('crud')
+// const getDBCollection = myDB.collection('crud')
 const data = {name:'anwar', age:'28'}
 const {ObjectId} = require('mongodb')
 
 const create = async (document)=>{
-const result = await myDBColl.insertOne(document)
+const result = await getDBCollection(myDB).insertOne(document)
 return result
 }
 
 const readAll = async ()=>{
-    const result = await myDBColl.find({}).toArray();
+    const result = await getDBCollection(myDB).find({}).toArray();
     return result
 }
 const read = async (id)=>{
-    const result = await myDBColl.find({_id:new ObjectId(id)}).toArray();
+    const result = await getDBCollection(myDB).find({_id:new ObjectId(id)}).toArray();
     return result
 }
 const search = async (document)=>{
-    const result = await myDBColl.find(document).toArray();
+    const result = await getDBCollection(myDB).find(document).toArray();
     return result
 }
 
 const update = async ()=>{
         const filter = {age:'28'}
         const newData = {name:'ista', age:'40'}
-        const result = await myDBColl.replaceOne(filter,newData )
+        const result = await getDBCollection(myDB).replaceOne(filter,newData )
         console.log('success', result)
 }
 const deleteById = async (id)=>{
     const filter = {_id: new ObjectId(id)}
-    const result = await myDBColl.deleteOne(filter)
+    const result = await getDBCollection(myDB).deleteOne(filter)
     return result
 }
 const deleteAll = async ()=>{
-    const result = await myDBColl.deleteMany({})
+    const result = await getDBCollection(myDB).deleteMany({})
     return result
 }
 
