@@ -1,4 +1,5 @@
 const {read, readAll, create, search, deleteById, deleteAll} = require('./db_manage')
+const {validate} = require('./simple-crud.request')
 const setupRoutes = (app)=>{
     app.get('/', async (req, res) => {
         const document = await readAll()
@@ -9,8 +10,16 @@ const setupRoutes = (app)=>{
         res.status(200).send(document)
       })
       app.post('/create', async  (req, res) => {
-        const document = await create(req.body)
-        res.status(200).send(document)
+        try {
+            const validationResult = validate(req.body)
+            if(!validationResult.error){
+                const result = await create(req.body)
+                res.status(200).json({message:'Successfully added'})
+            }
+            return res.status(400).json({status:'400', message:validationResult.error})
+        } catch (error) {
+            console.log(error)
+        }
         })
       app.post('/search', async  (req, res) => {
           const document = await search(req.body)
