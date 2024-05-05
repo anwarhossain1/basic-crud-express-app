@@ -1,4 +1,4 @@
-const {read, readAll, create, search, deleteById, deleteAll} = require('./db_manage')
+const {read, readAll, create, search, deleteById, deleteAll, update} = require('./db_manage')
 const {validate} = require('./simple-crud.request')
 const setupRoutes = (app)=>{
     app.get('/', async (req, res) => {
@@ -20,6 +20,22 @@ const setupRoutes = (app)=>{
         } catch (error) {
             console.log(error)
         }
+        })
+
+        app.post('/update/:id',async (req,res)=>{
+          try {
+            const validationResult = validate(req.body)
+            if(!validationResult.error){
+                const result = await update(req.params.id, req.body)
+                console.log('rr', result)
+               return  res.status(200).json({message:'Successfully Updated'})
+            }
+            return res.status(400).json({status:'400', message:validationResult.error})
+          } catch (error) {
+            console.error(error)
+            return error
+          }
+
         })
       app.post('/search', async  (req, res) => {
           const document = await search(req.body)

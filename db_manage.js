@@ -25,11 +25,9 @@ const search = async (document)=>{
     return result
 }
 
-const update = async ()=>{
-        const filter = {age:'28'}
-        const newData = {name:'ista', age:'40'}
-        const result = await getDBCollection(myDB).replaceOne(filter,newData )
-        console.log('success', result)
+const update = async (id, document)=>{
+        const result = await getDBCollection(myDB).replaceOne({_id: new ObjectId(id)},document )
+        return result
 }
 const deleteById = async (id)=>{
     const filter = {_id: new ObjectId(id)}
