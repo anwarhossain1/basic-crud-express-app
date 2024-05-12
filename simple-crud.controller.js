@@ -14,7 +14,7 @@ const setupRoutes = (app)=>{
             const validationResult = validate(req.body)
             if(!validationResult.error){
                 const result = await create(req.body)
-                res.status(200).json({message:'Successfully added'})
+                return res.status(200).json({message:'Successfully added'})
             }
             return res.status(400).json({status:'400', message:validationResult.error})
         } catch (error) {

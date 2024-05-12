@@ -7,6 +7,7 @@ const myDB = client.db('simple-crud')
 const data = {name:'anwar', age:'28'}
 const {ObjectId} = require('mongodb')
 
+
 const create = async (document)=>{
 const result = await getDBCollection(myDB).insertOne(document)
 return result
